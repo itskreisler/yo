@@ -20,14 +20,13 @@ import { usePlatform } from '../hooks/use-platform'
 
 const Menu = () => {
   const { pathname } = useLocation()
-  const temp = appPages.find(
-    ({ url, title }) => url === pathname && { title }
-  )
+  const temp = appPages.find(({ url, title }) => url === pathname && { title })
   const labels = []
   useDarkMode()
   const { OS } = usePlatform()
   useEffect(() => {
     document.title = temp?.title
+    console.log('public url: ', process.env.PUBLIC_URL)
   }, [temp])
   return (
     <IonMenu contentId="main" type="overlay">
