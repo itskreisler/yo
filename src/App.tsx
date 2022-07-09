@@ -49,7 +49,7 @@ const App: React.FC = () => {
               />
             ))}
 
-            <Route path={'/'} exact={true}>
+            <Route /* path={'/'} */ exact={true}>
               <Redirect to={URL_CONFIG.path} />
             </Route>
           </IonRouterOutlet>
