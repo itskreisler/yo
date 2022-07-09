@@ -2,7 +2,7 @@
   "name": "aboutme",
   "version": "0.0.1",
   "private": true,
-  "homepage": "https://itskreisler.github.io/yo/",
+  "homepage": "http://itskreisler.github.io/yo",
   "dependencies": {
     "@capacitor/android": "^3.6.0",
     "@capacitor/app": "1.1.1",
