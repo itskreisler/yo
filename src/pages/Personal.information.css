@@ -1,0 +1,75 @@
+.upload {
+  width: 100px;
+  position: relative;
+  margin: auto;
+}
+
+.upload img {
+  border-radius: 50%;
+  border: 6px solid #eaeaea;
+}
+
+.upload .round {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: hsla(0, 0%, 0%, 0.5);
+  width: 32px;
+  height: 32px;
+  line-height: 33px;
+  text-align: center;
+  border-radius: 50%;
+  border: 0.5px solid #ffffff;
+  overflow: hidden;
+}
+
+.upload .round input[type="file"] {
+  position: absolute;
+  transform: scale(2);
+  opacity: 0;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+  cursor: pointer;
+}
+.fa {
+  display: inline-block;
+}
+.fa-camera {
+  background-image: url("/public/assets/icon/camera-sharp.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 25px;
+  height: 30px;
+}
+
+
+.my_file {
+  position: absolute;
+  bottom: 0;
+  outline: none;
+  color: transparent;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px 120px;
+  cursor: pointer;
+  transition: 0.5s;
+  background: rgba(0,0,0,0.5);
+}
+@media (max-width: 992px) {
+  .my_file {
+    padding: 15px 110px;
+  }
+}
+.my_file::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.my_file::before {
+  content: '📷Foto📷';
+  color: #eee;
+  display: inline-block;
+  user-select: none;
+  -webkit-user-select: none;
+}
