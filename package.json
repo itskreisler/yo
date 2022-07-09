@@ -2,6 +2,7 @@
   "name": "aboutme",
   "version": "0.0.1",
   "private": true,
+  "homepage": "https://itskreisler.github.io/yo",
   "dependencies": {
     "@capacitor/android": "^3.6.0",
     "@capacitor/app": "1.1.1",
@@ -43,8 +44,8 @@
     "workbox-streams": "^5.1.4"
   },
   "scripts": {
-    "predeploy": "",
-    "deploy": "",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d docs",
     "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!(@ionic/react|@ionic/react-router|@ionic/core|@stencil/core|ionicons)/)'",
