@@ -36,7 +36,6 @@ input[type="file"]::-webkit-file-upload-button {
   display: inline-block;
 }
 .fa-camera {
-  background-image: url("/public/assets/icon/camera-sharp.svg");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;

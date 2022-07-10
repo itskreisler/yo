@@ -16,7 +16,7 @@ const PersonalInformation = () => {
   const {
     URL_PI: { title }
   } = PATHS
-  const coverDefault = '/assets/icon/favicon.png'
+  const coverDefault = process.env.PUBLIC_URL + '/assets/icon/favicon.png'
   const [info, setInfo] = useLocalStorage('info', {
     name: String(),
     age: Number(),
@@ -95,7 +95,9 @@ const PersonalInformation = () => {
                   accept="image/*"
                   onChange={handleOnChangeFile}
                 />
-                <i className="fa fa-camera"></i>
+                <i className="fa fa-camera" style={{
+                  backgroundImage: `url('${process.env.PUBLIC_URL}/assets/icon/camera-sharp.svg')`
+                }}></i>
               </div>
             </div>
           </IonCol>
