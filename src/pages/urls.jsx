@@ -13,7 +13,7 @@ import Pruebas from './Pruebas'
 
 const pathTitle = ([path, title]) => { return { path, title } }
 const PATHS = {
-  URL_DEFAULT: pathTitle(['/yo', 'Inicio']),
+  URL_DEFAULT: pathTitle(['/', 'Inicio']),
   URL_PI: pathTitle(['/yo/informacion-personal', 'Informacion personal']),
   URL_MFF: '/mis-comidas-favoritas',
   URL_MFC: '/mis-colores-favoritas',
