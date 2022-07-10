@@ -37,7 +37,6 @@ const App: React.FC = () => {
 
   return (
     <IonApp>
-
       <IonReactHashRouter>
         <IonSplitPane contentId="main">
           <Menu />

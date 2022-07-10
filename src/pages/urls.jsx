@@ -14,7 +14,7 @@ import Pruebas from './Pruebas'
 const pathTitle = ([path, title]) => { return { path, title } }
 const PATHS = {
   URL_DEFAULT: pathTitle(['/', 'Inicio']),
-  URL_PI: pathTitle(['/yo/informacion-personal', 'Informacion personal']),
+  URL_PI: pathTitle(['/informacion-personal', 'Informacion personal']),
   URL_MFF: '/mis-comidas-favoritas',
   URL_MFC: '/mis-colores-favoritas',
   URL_GFM: '/generos-de-musica-favoritos',
@@ -34,8 +34,8 @@ const PATHS = {
   URL_FP: '/postres-favoritos',
   URL_MDF: '/mi-fecha-perfecta',
   URL_FIN: '/fin',
-  URL_TEST: pathTitle(['/yo/pruebas', 'Mis pruebas']),
-  URL_CONFIG: pathTitle(['/yo/config', 'Configuracion'])
+  URL_TEST: pathTitle(['/pruebas', 'Mis pruebas']),
+  URL_CONFIG: pathTitle(['/config', 'Configuracion'])
 }
 const appPages = [
   {
