@@ -15,6 +15,7 @@ import { PATHS } from './urls'
 
 const Pruebas = () => {
   const {
+    URL_CONFIG,
     URL_TEST: { title }
   } = PATHS
   return (
@@ -23,7 +24,7 @@ const Pruebas = () => {
       <IonGrid>
         <IonRow className='ion-align-items-center' style={{ justifyContent: 'center' }}>
           <IonCol className="ion-align-self-center" style={{ textAlign: 'center' }} size={6} sizeMd={12}>
-            <TagLinkTo to='/config'>
+            <TagLinkTo to={URL_CONFIG.path}>
               <IonText>hola mundo</IonText>
             </TagLinkTo>
           </IonCol>
@@ -31,7 +32,7 @@ const Pruebas = () => {
       </IonGrid>
       <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton
-            routerLink={'/config'}
+            routerLink={URL_CONFIG.path}
             routerDirection="none"
             color={'dark'}
             size="small"
