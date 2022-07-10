@@ -25,13 +25,17 @@ npm run deploy
 # Otra forma de hacer build de la aplicación
 npm run docs
 
-# Inicia un servidor local con los archivos estaticos - requiere `npm run build`
+# Inicia un servidor local con los archivos estaticos
+## Requiere `npm run build`
 npm run local
 
 # Hace el build de la aplicación en android
 npm run build-android
 
-# Reesplaza el logo y splash screen de la aplicación android - requiere la carpeta y archivos ~resources/icon.png & ~resources/splash.png
+# Reemplaza el logo y splash screen de la aplicación android
+## Requiere la carpeta y archivos 
+### ~resources/icon.png(1024x1024) & ~resources/splash.png(1920x1920)
+#### ~resources/android/icon-background.png(1024x1024) & ~resources/android/icon-foreground.png(1024x1024)
 npm run build-resources
 ```
 
