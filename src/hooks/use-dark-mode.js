@@ -37,7 +37,7 @@ const useDarkMode = () => {
 // Thanks to hook composition we can hide away that extra complexity!
 // Read the recipe for useMedia to learn more: usehooks.com/useMedia
 const usePrefersDarkMode = () => {
-  return useMedia(['(prefers-color-scheme: dark)'], [false], false)
+  return useMedia(['(prefers-color-scheme: dark)'], [false], true)
 }
 
 export { useDarkMode, usePrefersDarkMode }

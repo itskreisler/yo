@@ -53,7 +53,8 @@
     "docs": "react-scripts build && mv build docs",
     "local": "npx serve -s docs",
     "build-android": "npx cap add android",
-    "build-resources": "npx cordova-res android --skip-config --copy"
+    "build-resources": "npx cordova-res android --skip-config --copy",
+    "git:add:commit:push" : "git add . | git commit -m \"Nuevos cambios\" | git push "
   },
   "eslintConfig": {
     "extends": [

@@ -6,17 +6,23 @@ import {
   IonLabel,
   IonRow
 } from '@ionic/react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { HeaderWithMenuBtn } from '../components/TagHeader'
 import { TagLayout } from '../components/TagLayout'
-import { useLocalStorage } from '../hooks/use-local-storage'
+import { useLocalStorage, useMedia } from '../hooks/hooks'
 import { PATHS } from './urls'
 import './Personal.information.css'
+
 const PersonalInformation = () => {
   const {
     URL_PI: { title }
   } = PATHS
   const coverDefault = process.env.PUBLIC_URL + '/assets/icon/favicon.png'
+  const movil = useMedia(['(max-width: 992px)'], [true], false)
+  useEffect(() => {
+    console.log('movil : ' + movil)
+  }, [movil])
+
   const [info, setInfo] = useLocalStorage('info', {
     name: String(),
     age: Number(),
@@ -47,61 +53,67 @@ const PersonalInformation = () => {
       setInfo({ ...info })
     }
   }
+
+  const TagAvatarLarge = () => {
+    return (<IonRow style={{ justifyContent: 'center' }}>
+    <IonCol size>
+      <div
+        style={{
+          width: '300px',
+          height: '300px',
+          backgroundImage: `url('${cover || coverDefault}')`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          clipPath: 'circle(50% at 50% 50%)'
+        }}
+      >
+        <input
+          type="file"
+          className="my_file"
+          accept="image/*"
+          onChange={handleOnChangeFile}
+        />
+      </div>
+    </IonCol>
+  </IonRow>)
+  }
+  const TagAvatarSmall = () => {
+    return (<IonRow style={{ justifyContent: 'center' }}>
+    <IonCol size>
+      <div className="upload">
+        <div
+          style={{
+            width: '100px',
+            height: '100px',
+            backgroundImage: `url('${cover || coverDefault}')`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            clipPath: 'circle(50% at 50% 50%)'
+          }}
+        />
+
+        <div className="round">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleOnChangeFile}
+          />
+          <i className="fa fa-camera" style={{
+            backgroundImage: `url('${process.env.PUBLIC_URL}/assets/icon/camera-sharp.svg')`
+          }}></i>
+        </div>
+      </div>
+    </IonCol>
+  </IonRow>)
+  }
+
   return (
     <TagLayout>
       <HeaderWithMenuBtn title={title} />
       <IonGrid>
-        <IonRow style={{ justifyContent: 'center' }}>
-          <IonCol size>
-            <div
-              style={{
-                width: '300px',
-                height: '300px',
-                backgroundImage: `url('${cover || coverDefault}')`,
-                backgroundRepeat: 'no-repeat',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                clipPath: 'circle(50% at 50% 50%)'
-              }}
-            >
-              <input
-                type="file"
-                className="my_file"
-                accept="image/*"
-                onChange={handleOnChangeFile}
-              />
-            </div>
-          </IonCol>
-        </IonRow>
-
-        <IonRow style={{ justifyContent: 'center' }}>
-          <IonCol size>
-            <div className="upload">
-              <div
-                style={{
-                  width: '100px',
-                  height: '100px',
-                  backgroundImage: `url('${cover || coverDefault}')`,
-                  backgroundRepeat: 'no-repeat',
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  clipPath: 'circle(50% at 50% 50%)'
-                }}
-              />
-
-              <div className="round">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleOnChangeFile}
-                />
-                <i className="fa fa-camera" style={{
-                  backgroundImage: `url('${process.env.PUBLIC_URL}/assets/icon/camera-sharp.svg')`
-                }}></i>
-              </div>
-            </div>
-          </IonCol>
-        </IonRow>
+    {movil ? <TagAvatarSmall/> : <TagAvatarLarge/>}
         <IonRow>
           <IonCol size="12" sizeMd="6" sizeLg="4">
             <IonItem>
