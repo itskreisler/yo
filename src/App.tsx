@@ -31,7 +31,8 @@ setupIonicReact()
 
 const App: React.FC = () => {
   const {
-    URL_CONFIG
+    URL_CONFIG,
+    URL_DEFAULT: { path }
   } = PATHS
 
   return (
@@ -49,7 +50,7 @@ const App: React.FC = () => {
               />
             ))}
 
-            <Route /* path={'/'} */ exact={true}>
+            <Route path={path} exact={true}>
               <Redirect to={URL_CONFIG.path} />
             </Route>
           </IonRouterOutlet>
