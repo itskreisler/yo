@@ -18,6 +18,7 @@ npm run start
 
 # Hace un build de la aplicación
 npm run build
+
 # Hace un despliegue a github pages
 npm run deploy
 
@@ -35,7 +36,7 @@ npm run build-resources
 ```
 
 ## Contribuye
-Las [solicitudes de extracción](https://github.com/itskreisler/yo/pulls) son bienvenidas. Para cambios importantes, primero abra un [problema](https://github.com/itskreisler/yo/issues) primero para discutir lo que le gustaría cambiar.
+Las [solicitudes de extracción](https://github.com/itskreisler/yo/pulls) son bienvenidas. Para cambios importantes, primero abra un [problema](https://github.com/itskreisler/yo/issues) para discutir lo que le gustaría cambiar.
 
 Asegúrese de actualizar las pruebas según corresponda.
 
