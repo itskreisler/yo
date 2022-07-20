@@ -4,18 +4,21 @@ import {
   IonIcon
 } from '@ionic/react'
 import React from 'react'
+import ReactJson from 'react-json-view'
 import {
   addSharp
 } from 'ionicons/icons'
 import { HeaderWithMenuBtn, TagLayout, TagLinkTo } from '../components/Tags'
 
 import { PATHS } from './urls'
+import { useAboutMeContext } from '../context/AboutMeContext'
 
 const Pruebas = () => {
   const {
     URL_CONFIG,
     URL_TEST: { title }
   } = PATHS
+  const { aboutMe: { info } } = useAboutMeContext()
   return (
     <TagLayout>
       <HeaderWithMenuBtn title={title} />
@@ -25,6 +28,9 @@ const Pruebas = () => {
             <TagLinkTo to={URL_CONFIG.path}>
               <IonText>hola mundo</IonText>
             </TagLinkTo>
+          </IonCol>
+          <IonCol>
+          <ReactJson theme={'tomorrow'} name='informacion' src={info} enableClipboard={false} />
           </IonCol>
         </IonRow>
       </IonGrid>
