@@ -30,10 +30,13 @@ const PersonalInformation = () => {
     city: String(),
     allergies: String(),
     diseases: String(),
-    rh: String(),
+    rh: String()
+  })
+  const [gallery, setGallery] = useLocalStorage('gallery', {
     cover: String()
   })
-  const { name, age, stature, cover } = info
+  const { cover } = gallery
+  const { name, age, stature } = info
   const handleChangeInfo = (e) => {
     const {
       target: { name, value }
@@ -49,71 +52,78 @@ const PersonalInformation = () => {
 
     reader.readAsDataURL(files[0])
     reader.onloadend = () => {
-      info.cover = reader.result.toString()
-      setInfo({ ...info })
+      gallery.cover = reader.result.toString()
+      setGallery({ ...gallery })
     }
   }
 
   const TagAvatarLarge = () => {
-    return (<IonRow style={{ justifyContent: 'center' }}>
-    <IonCol size>
-      <div
-        style={{
-          width: '300px',
-          height: '300px',
-          backgroundImage: `url('${cover || coverDefault}')`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          clipPath: 'circle(50% at 50% 50%)'
-        }}
-      >
-        <input
-          type="file"
-          className="my_file"
-          accept="image/*"
-          onChange={handleOnChangeFile}
-        />
-      </div>
-    </IonCol>
-  </IonRow>)
+    return (
+      <IonRow style={{ justifyContent: 'center' }}>
+        <IonCol size>
+          <div
+            style={{
+              width: '300px',
+              height: '300px',
+              backgroundImage: `url('${cover || coverDefault}')`,
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              clipPath: 'circle(50% at 50% 50%)'
+            }}
+          >
+            <input
+              type="file"
+              className="my_file"
+              accept="image/*"
+              onChange={handleOnChangeFile}
+            />
+          </div>
+        </IonCol>
+      </IonRow>
+    )
   }
   const TagAvatarSmall = () => {
-    return (<IonRow style={{ justifyContent: 'center' }}>
-    <IonCol size>
-      <div className="upload">
-        <div
-          style={{
-            width: '100px',
-            height: '100px',
-            backgroundImage: `url('${cover || coverDefault}')`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            clipPath: 'circle(50% at 50% 50%)'
-          }}
-        />
+    return (
+      <IonRow style={{ justifyContent: 'center' }}>
+        <IonCol size>
+          <div className="upload">
+            <div
+              style={{
+                width: '100px',
+                height: '100px',
+                backgroundImage: `url('${cover || coverDefault}')`,
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                clipPath: 'circle(50% at 50% 50%)'
+              }}
+            />
 
-        <div className="round">
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleOnChangeFile}
-          />
-          <i className="fa fa-camera" style={{
-            backgroundImage: `url('${process.env.PUBLIC_URL}/assets/icon/camera-sharp.svg')`
-          }}></i>
-        </div>
-      </div>
-    </IonCol>
-  </IonRow>)
+            <div className="round">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleOnChangeFile}
+              />
+              <i
+                className="fa fa-camera"
+                style={{
+                  backgroundImage: `url('${process.env.PUBLIC_URL}/assets/icon/camera-sharp.svg')`
+                }}
+              ></i>
+            </div>
+          </div>
+        </IonCol>
+      </IonRow>
+    )
   }
 
   return (
     <TagLayout>
       <HeaderWithMenuBtn title={title} />
       <IonGrid>
-    {movil ? <TagAvatarSmall/> : <TagAvatarLarge/>}
+        {movil ? <TagAvatarSmall /> : <TagAvatarLarge />}
         <IonRow>
           <IonCol size="12" sizeMd="6" sizeLg="4">
             <IonItem>

@@ -62,6 +62,7 @@ const useLS = {
       value = JSON.parse(value)
     }
     return value
-  }
+  },
+  c: () => { window.localStorage.clear() }
 }
 export { useLocalStorage, useLS }
