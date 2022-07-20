@@ -27,6 +27,7 @@ import '@ionic/react/css/display.css'
 /* Theme variables */
 import './theme/variables.css'
 import { appPages, PATHS } from './pages/urls'
+import AboutMeContext from './context/AboutMeContext'
 setupIonicReact()
 
 const App: React.FC = () => {
@@ -39,21 +40,23 @@ const App: React.FC = () => {
     <IonApp>
       <IonReactHashRouter>
         <IonSplitPane contentId="main">
-          <Menu />
-          <IonRouterOutlet id="main">
-            {appPages.map(({ url, component }, index) => (
-              <Route
-                key={index}
-                path={url}
-                exact={true}
-                component={() => component}
-              />
-            ))}
+          <AboutMeContext>
+            <Menu />
+            <IonRouterOutlet id="main">
+              {appPages.map(({ url, component }, index) => (
+                <Route
+                  key={index}
+                  path={url}
+                  exact={true}
+                  component={() => component}
+                />
+              ))}
 
-            <Route path={path} exact={true}>
-              <Redirect to={URL_CONFIG.path} />
-            </Route>
-          </IonRouterOutlet>
+              <Route path={path} exact={true}>
+                <Redirect to={URL_CONFIG.path} />
+              </Route>
+            </IonRouterOutlet>
+          </AboutMeContext>
         </IonSplitPane>
       </IonReactHashRouter>
     </IonApp>

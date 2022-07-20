@@ -7,7 +7,8 @@ import {
   IonListHeader,
   IonMenu,
   IonMenuToggle,
-  IonNote
+  IonNote,
+  IonText
 } from '@ionic/react'
 import { useLocation } from 'react-router-dom'
 import { bookmarkOutline } from 'ionicons/icons'
@@ -17,9 +18,11 @@ import './Menu.css'
 import { useDarkMode } from '../hooks/use-dark-mode'
 import { useEffect } from 'react'
 import { usePlatform } from '../hooks/use-platform'
+import { useAboutMeContext } from '../context/AboutMeContext'
 
 const Menu = () => {
   const { pathname } = useLocation()
+  const { aboutMe: { info: { name } } } = useAboutMeContext()
   const temp = appPages.find(({ url, title }) => url === pathname && { title })
   const labels = []
   useDarkMode()
@@ -34,6 +37,7 @@ const Menu = () => {
         <IonList id="inbox-list">
           <IonListHeader>{temp?.title}</IonListHeader>
           <IonNote>{OS}</IonNote>
+          <IonText>{name && `@${name.trim().replace(/\s+/g, '_')}`}</IonText>
           {appPages.map(({ url, title, mdIcon, iosIcon }, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>

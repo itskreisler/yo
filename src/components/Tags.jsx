@@ -1,0 +1,5 @@
+export * from './TagFooter'
+export * from './TagHeader'
+export * from './TagIonCardHeader'
+export * from './TagLayout'
+export * from './TagLinkTo'

@@ -6,32 +6,20 @@ import {
   IonLabel,
   IonRow
 } from '@ionic/react'
-import React, { useEffect } from 'react'
-import { HeaderWithMenuBtn } from '../components/TagHeader'
-import { TagLayout } from '../components/TagLayout'
+import React from 'react'
+import { HeaderWithMenuBtn, TagLayout } from '../components/Tags'
 import { useLocalStorage, useMedia } from '../hooks/hooks'
 import { PATHS } from './urls'
 import './Personal.information.css'
-
+import { useAboutMeContext } from '../context/AboutMeContext'
+// TODO: Añadir los campos adicionales a la informacion personal
 const PersonalInformation = () => {
   const {
     URL_PI: { title }
   } = PATHS
   const coverDefault = process.env.PUBLIC_URL + '/assets/icon/favicon.png'
   const movil = useMedia(['(max-width: 992px)'], [true], false)
-  useEffect(() => {
-    console.log('movil : ' + movil)
-  }, [movil])
-
-  const [info, setInfo] = useLocalStorage('info', {
-    name: String(),
-    age: Number(),
-    stature: String(),
-    city: String(),
-    allergies: String(),
-    diseases: String(),
-    rh: String()
-  })
+  const { aboutMe: { info, setInfo } } = useAboutMeContext()
   const [gallery, setGallery] = useLocalStorage('gallery', {
     cover: String()
   })
@@ -56,7 +44,6 @@ const PersonalInformation = () => {
       setGallery({ ...gallery })
     }
   }
-
   const TagAvatarLarge = () => {
     return (
       <IonRow style={{ justifyContent: 'center' }}>

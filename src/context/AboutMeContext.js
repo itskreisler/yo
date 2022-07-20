@@ -1,20 +1,24 @@
-import React, { useContext, useState, useEffect, createContext } from 'react'
+import React, { useContext, createContext } from 'react'
+import { useLocalStorage } from '../hooks/use-local-storage'
 const AppAboutMe = createContext({
-  about: {
-    me: {}
-  }
+  aboutMe: { info: Object(), setInfo: () => {} }
 })
 
 export default function AboutMeContext ({ children }) {
-  const [me, setMe] = useState()
-  useEffect(() => { setMe({ name: 'Kreisler' }) }, [])
+  const [info, setInfo] = useLocalStorage('info', {
+    name: String(),
+    age: Number(),
+    stature: String(),
+    city: String(),
+    allergies: String(),
+    diseases: String(),
+    rh: String()
+  })
   return (
 
     <AppAboutMe.Provider
       value={{
-        about: {
-          info: me
-        }
+        aboutMe: { info, setInfo }
       }}
     >
       {children}

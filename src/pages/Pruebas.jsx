@@ -7,9 +7,7 @@ import React from 'react'
 import {
   addSharp
 } from 'ionicons/icons'
-import { HeaderWithMenuBtn } from '../components/TagHeader'
-import { TagLayout } from '../components/TagLayout'
-import { TagLinkTo } from '../components/TagLinkTo'
+import { HeaderWithMenuBtn, TagLayout, TagLinkTo } from '../components/Tags'
 
 import { PATHS } from './urls'
 

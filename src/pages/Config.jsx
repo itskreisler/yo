@@ -8,9 +8,7 @@ import {
 } from '@ionic/react'
 import { trashSharp } from 'ionicons/icons'
 import React from 'react'
-import { HeaderWithMenuBtn } from '../components/TagHeader'
-import { TagIonCardHeader } from '../components/TagIonCardHeader'
-import { TagLayout } from '../components/TagLayout'
+import { HeaderWithMenuBtn, TagIonCardHeader, TagLayout } from '../components/Tags'
 import { useDarkMode, useLS } from '../hooks/hooks'
 import { PATHS } from './urls'
 
