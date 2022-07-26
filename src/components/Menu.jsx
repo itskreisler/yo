@@ -29,7 +29,7 @@ const Menu = () => {
   const { OS } = usePlatform()
   useEffect(() => {
     document.title = temp?.title
-    console.log('public url: ', process.env.PUBLIC_URL)
+    // console.log('public url: ', process.env.PUBLIC_URL)
   }, [temp])
   return (
     <IonMenu contentId="main" type="overlay">

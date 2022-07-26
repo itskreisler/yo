@@ -4,14 +4,18 @@ import {
   IonInput,
   IonItem,
   IonLabel,
-  IonRow
+  IonRow,
+  IonButton,
+  IonIcon
 } from '@ionic/react'
+import { closeSharp } from 'ionicons/icons'
 import React from 'react'
 import { HeaderWithMenuBtn, TagLayout } from '../components/Tags'
-import { useLocalStorage, useMedia } from '../hooks/hooks'
+import { useMedia } from '../hooks/hooks'
 import { PATHS } from './urls'
-import './Personal.information.css'
 import { useAboutMeContext } from '../context/AboutMeContext'
+
+import './Personal.information.css'
 // TODO: Añadir los campos adicionales a la informacion personal
 const PersonalInformation = () => {
   const {
@@ -19,12 +23,9 @@ const PersonalInformation = () => {
   } = PATHS
   const coverDefault = process.env.PUBLIC_URL + '/assets/icon/favicon.png'
   const movil = useMedia(['(max-width: 992px)'], [true], false)
-  const { aboutMe: { info, setInfo } } = useAboutMeContext()
-  const [gallery, setGallery] = useLocalStorage('gallery', {
-    cover: String()
-  })
+  const { aboutMe: { info, setInfo, gallery, setGallery } } = useAboutMeContext()
   const { cover } = gallery
-  const { name, age, stature } = info
+  const { name, age, stature, city } = info
   const handleChangeInfo = (e) => {
     const {
       target: { name, value }
@@ -111,6 +112,20 @@ const PersonalInformation = () => {
       <HeaderWithMenuBtn title={title} />
       <IonGrid>
         {movil ? <TagAvatarSmall /> : <TagAvatarLarge />}
+        {cover && (
+          <IonRow className='j-c-c'>
+          <IonCol size>
+          <IonButton size='small' expand="block" fill="outline" color="danger" onClick={() => {
+            gallery.cover = String()
+            setGallery({ ...gallery })
+          }}>
+        <IonIcon slot="start" icon={closeSharp} />
+        Borrar Foto
+        </IonButton>
+        </IonCol>
+          </IonRow>
+        )}
+
         <IonRow>
           <IonCol size="12" sizeMd="6" sizeLg="4">
             <IonItem>
@@ -142,6 +157,17 @@ const PersonalInformation = () => {
               <IonInput
                 value={stature}
                 name="stature"
+                onIonChange={handleChangeInfo}
+                clearInput
+              ></IonInput>
+            </IonItem>
+          </IonCol>
+          <IonCol size="12" sizeMd="6" sizeLg="4">
+            <IonItem>
+              <IonLabel position="floating">Ciudad:</IonLabel>
+              <IonInput
+                value={city}
+                name="city"
                 onIonChange={handleChangeInfo}
                 clearInput
               ></IonInput>
