@@ -8,4 +8,12 @@ const TagLinkTo = ({ children, style, ...props }) => {
   }
   return <Link {...attr}>{children}</Link>
 }
-export { TagLinkTo }
+const TagLinkToA = ({ children, style, ...props }) => {
+  const meStyle = { textDecoration: 'none' }
+  const attr = {
+    style: style ? { ...meStyle, ...style } : meStyle,
+    ...props
+  }
+  return <a {...attr}>{children}</a>
+}
+export { TagLinkTo, TagLinkToA }

@@ -1,7 +1,20 @@
 import React, { useContext, createContext } from 'react'
 import { useLocalStorage } from '../hooks/use-local-storage'
 const AppAboutMe = createContext({
-  aboutMe: { info: Object(), setInfo: () => {}, gallery: Object(), setGallery: () => {} }
+  aboutMe: {
+    info: {
+      name: String(),
+      age: String(),
+      stature: String(),
+      city: String(),
+      allergies: String(),
+      diseases: String(),
+      rh: String()
+    },
+    setInfo: () => {},
+    gallery: Object(),
+    setGallery: () => {}
+  }
 })
 
 export default function AboutMeContext ({ children }) {

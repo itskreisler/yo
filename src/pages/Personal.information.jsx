@@ -6,10 +6,20 @@ import {
   IonLabel,
   IonRow,
   IonButton,
-  IonIcon
+  IonIcon,
+  IonChip,
+  IonAccordion,
+  IonAccordionGroup
 } from '@ionic/react'
-import { closeSharp } from 'ionicons/icons'
-import React from 'react'
+import {
+  closeSharp,
+  closeCircle,
+  wifi,
+  wine,
+  warning,
+  walk
+} from 'ionicons/icons'
+import React, { useRef, useState } from 'react'
 import { HeaderWithMenuBtn, TagLayout } from '../components/Tags'
 import { useMedia } from '../hooks/hooks'
 import { PATHS } from './urls'
@@ -23,15 +33,26 @@ const PersonalInformation = () => {
   } = PATHS
   const coverDefault = process.env.PUBLIC_URL + '/assets/icon/favicon.png'
   const movil = useMedia(['(max-width: 992px)'], [true], false)
-  const { aboutMe: { info, setInfo, gallery, setGallery } } = useAboutMeContext()
+  const {
+    aboutMe: { info, setInfo, gallery, setGallery }
+  } = useAboutMeContext()
+  const inputAllergie = useRef()
   const { cover } = gallery
-  const { name, age, stature, city } = info
+  const { name, age, stature, city, allergies, diseases, rh } = info
   const handleChangeInfo = (e) => {
     const {
       target: { name, value }
     } = e
     info[name] = value
     setInfo({ ...info })
+  }
+  const handleChangeInfoAllergie = () => {
+    const {
+      current: { name, value }
+    } = inputAllergie
+    info[name] += `${value},`
+    setInfo({ ...info })
+    inputAllergie.current.value = String()
   }
   const handleOnChangeFile = (e) => {
     const {
@@ -113,16 +134,22 @@ const PersonalInformation = () => {
       <IonGrid>
         {movil ? <TagAvatarSmall /> : <TagAvatarLarge />}
         {cover && (
-          <IonRow className='j-c-c'>
-          <IonCol size>
-          <IonButton size='small' expand="block" fill="outline" color="danger" onClick={() => {
-            gallery.cover = String()
-            setGallery({ ...gallery })
-          }}>
-        <IonIcon slot="start" icon={closeSharp} />
-        Borrar Foto
-        </IonButton>
-        </IonCol>
+          <IonRow className="j-c-c">
+            <IonCol size>
+              <IonButton
+                size="small"
+                expand="block"
+                fill="outline"
+                color="danger"
+                onClick={() => {
+                  gallery.cover = String()
+                  setGallery({ ...gallery })
+                }}
+              >
+                <IonIcon slot="start" icon={closeSharp} />
+                Borrar Foto
+              </IonButton>
+            </IonCol>
           </IonRow>
         )}
 
@@ -172,6 +199,91 @@ const PersonalInformation = () => {
                 clearInput
               ></IonInput>
             </IonItem>
+          </IonCol>
+          <IonCol size="12" sizeMd="6" sizeLg="4">
+            <IonItem>
+              <IonLabel position="floating">Tipo de Sangre:</IonLabel>
+              <IonInput
+                value={rh}
+                name="rh"
+                onIonChange={handleChangeInfo}
+                clearInput
+              ></IonInput>
+            </IonItem>
+          </IonCol>
+        </IonRow>
+        <IonRow>
+          <IonCol size="12" sizeMd="6" sizeLg="4">
+            <IonItem>
+              <IonLabel>Alergias:</IonLabel>
+              <IonButton
+                slot="end"
+                fill="outline"
+                color={'success'}
+                onClick={handleChangeInfoAllergie}
+              >
+                Añadir
+              </IonButton>
+              <IonInput
+                ref={inputAllergie}
+                name="allergies"
+                clearInput
+              ></IonInput>
+            </IonItem>
+          </IonCol>
+          <IonCol size="12" sizeMd="6" sizeLg="4">
+            <IonItem>
+              <IonLabel>Enfermedades:</IonLabel>
+              <IonButton slot="end" fill="outline" color={'success'}>
+                Añadir
+              </IonButton>
+              <IonInput
+                value={diseases}
+                name="diseases"
+                onIonChange={handleChangeInfo}
+                clearInput
+              ></IonInput>
+            </IonItem>
+          </IonCol>
+        </IonRow>
+        <IonRow>
+          <IonCol></IonCol>
+          <IonCol size="12">
+            <IonAccordionGroup expand="inset">
+              <IonAccordion value="first">
+                <IonItem slot="header" color="light">
+                  <IonLabel>Alergias</IonLabel>
+                </IonItem>
+                <div className="ion-padding" slot="content">
+                  {allergies &&
+                    allergies
+                      .split(',')
+                      .map(
+                        (item, index) =>
+                          item.trim() && (
+                            <IonChip key={index} onClick={() => {
+                              const arrayAlergia = allergies.split(',')
+                              const indexAlergia = arrayAlergia.findIndex(i => i === item)
+                              const AlergiaSin = arrayAlergia.filter((el, indice) => indice !== indexAlergia)
+                              console.log(AlergiaSin.join(','))
+                              handleChangeInfo({ target: { name: 'allergies', value: AlergiaSin.join(',') } })
+                            }}>
+                              <IonLabel>{item}</IonLabel>
+                              <IonIcon color="danger" icon={closeCircle} />
+                            </IonChip>
+                          )
+                      )}
+                </div>
+              </IonAccordion>
+              <IonAccordion value="second">
+                <IonItem slot="header" color="light">
+                  <IonLabel>Enfermedades</IonLabel>
+                </IonItem>
+                <div className="ion-padding" slot="content">
+                  Second Content
+                </div>
+              </IonAccordion>
+            </IonAccordionGroup>
           </IonCol>
         </IonRow>
       </IonGrid>

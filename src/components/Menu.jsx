@@ -11,20 +11,33 @@ import {
   IonText
 } from '@ionic/react'
 import { useLocation } from 'react-router-dom'
-import { bookmarkOutline } from 'ionicons/icons'
+import { logoGithub, starSharp } from 'ionicons/icons'
 import { appPages } from '../pages/urls'
 import './Menu.css'
 
 import { useDarkMode } from '../hooks/use-dark-mode'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { usePlatform } from '../hooks/use-platform'
 import { useAboutMeContext } from '../context/AboutMeContext'
+import { TagLinkToA } from './TagLinkTo'
 
 const Menu = () => {
+  const [estrellas, setEstrellas] = useState()
+  useEffect(() => {
+    (async () => {
+      const req = await global.fetch('https://api.github.com/repos/itskreisler/yo')
+      const res = await req.json()
+      setEstrellas(res)
+    })()
+  }, [])
   const { pathname } = useLocation()
-  const { aboutMe: { info: { name } } } = useAboutMeContext()
+  const {
+    aboutMe: {
+      info: { name }
+    }
+  } = useAboutMeContext()
   const temp = appPages.find(({ url, title }) => url === pathname && { title })
-  const labels = []
+  const labels = ['GitHub']
   useDarkMode()
   const { OS } = usePlatform()
   useEffect(() => {
@@ -57,12 +70,20 @@ const Menu = () => {
         </IonList>
 
         <IonList id="labels-list">
-          <IonListHeader>Labels</IonListHeader>
+          <IonListHeader>Creado con 💙</IonListHeader>
           {labels.map((label, index) => (
-            <IonItem lines="none" key={index}>
-              <IonIcon slot="start" icon={bookmarkOutline} />
-              <IonLabel>{label}</IonLabel>
-            </IonItem>
+            <TagLinkToA
+              key={index}
+              href={'https://github.com/itskreisler/yo'}
+              target={'_blank'}
+              rel="noopener noreferrer"
+            >
+              <IonItem lines="none">
+                <IonIcon slot="start" icon={logoGithub} />
+                <IonLabel>{label}</IonLabel>{estrellas?.stargazers_count}
+                <IonIcon slot="end" icon={starSharp}/>
+              </IonItem>
+            </TagLinkToA>
           ))}
         </IonList>
       </IonContent>
