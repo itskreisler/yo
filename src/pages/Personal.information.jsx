@@ -34,9 +34,10 @@ const PersonalInformation = () => {
     aboutMe: { info, setInfo, gallery, setGallery }
   } = useAboutMeContext()
   const inputAllergie = useRef()
+  const inputDiseases = useRef()
   const { cover } = gallery
   const { name, age, stature, city, allergies, diseases, rh } = info
-  const separador = ','
+  const separador = '|'
   const handleChangeInfo = (e) => {
     const {
       target: { name, value }
@@ -44,22 +45,39 @@ const PersonalInformation = () => {
     info[name] = value
     setInfo({ ...info })
   }
-  const inputEnter = (e) => {
+  const inputEnterAllergie = (e) => {
     const {
       current: { value }
     } = inputAllergie
     value && handleChangeInfoAllergie()
   }
-  useKey(['Enter'], inputEnter, {
+  const inputEnterDiseases = (e) => {
+    const {
+      current: { value }
+    } = inputDiseases
+    value && handleChangeInfoDiseases()
+  }
+  useKey(['Enter'], inputEnterAllergie, {
     target: inputAllergie
+  })
+  useKey(['Enter'], inputEnterDiseases, {
+    target: inputDiseases
   })
   const handleChangeInfoAllergie = () => {
     const {
       current: { name, value }
     } = inputAllergie
-    info[name] += `${value}${separador}`
-    setInfo({ ...info })
+    info[name] += value ? `${value}${separador}` : ''
+    value && setInfo({ ...info })
     inputAllergie.current.value = String()
+  }
+  const handleChangeInfoDiseases = () => {
+    const {
+      current: { name, value }
+    } = inputDiseases
+    info[name] += value ? `${value}${separador}` : ''
+    value && setInfo({ ...info })
+    inputDiseases.current.value = String()
   }
   const handleOnChangeFile = (e) => {
     const {
@@ -241,13 +259,13 @@ const PersonalInformation = () => {
           <IonCol size="12" sizeMd="6" sizeLg="4">
             <IonItem>
               <IonLabel>Enfermedades:</IonLabel>
-              <IonButton slot="end" fill="outline" color={'success'}>
+              <IonButton slot="end" fill="outline" color={'success'}
+              onClick={handleChangeInfoDiseases}>
                 Añadir
               </IonButton>
               <IonInput
-                value={diseases}
+                ref={inputDiseases}
                 name="diseases"
-                onIonChange={handleChangeInfo}
                 clearInput
               ></IonInput>
             </IonItem>
@@ -262,6 +280,7 @@ const PersonalInformation = () => {
                   <IonLabel>Alergias</IonLabel>
                 </IonItem>
                 <div className="ion-padding" slot="content">
+                  {!allergies && 'No hay alergias'}
                   {allergies &&
                     allergies
                       .split(separador)
@@ -272,7 +291,6 @@ const PersonalInformation = () => {
                               const arrayAlergia = allergies.split(separador)
                               const indexAlergia = arrayAlergia.findIndex(i => i === item)
                               const AlergiaSin = arrayAlergia.filter((el, indice) => indice !== indexAlergia)
-                              console.log(AlergiaSin.join(separador))
                               handleChangeInfo({ target: { name: 'allergies', value: AlergiaSin.join(separador) } })
                             }}>
                               <IonLabel>{item}</IonLabel>
@@ -287,7 +305,24 @@ const PersonalInformation = () => {
                   <IonLabel>Enfermedades</IonLabel>
                 </IonItem>
                 <div className="ion-padding" slot="content">
-                  Second Content
+                {!diseases && 'No hay Enfermedades'}
+                {diseases &&
+                    diseases
+                      .split(separador)
+                      .map(
+                        (item, index) =>
+                          item.trim() && (
+                            <IonChip key={index} onClick={() => {
+                              const arrayEnfermedad = diseases.split(separador)
+                              const indexEnfermedad = arrayEnfermedad.findIndex(i => i === item)
+                              const enfermedadSin = arrayEnfermedad.filter((el, indice) => indice !== indexEnfermedad)
+                              handleChangeInfo({ target: { name: 'diseases', value: enfermedadSin.join(separador) } })
+                            }}>
+                              <IonLabel>{item}</IonLabel>
+                              <IonIcon color="danger" icon={closeCircle} />
+                            </IonChip>
+                          )
+                      )}
                 </div>
               </IonAccordion>
             </IonAccordionGroup>
