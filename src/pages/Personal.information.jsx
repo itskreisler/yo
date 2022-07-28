@@ -13,14 +13,11 @@ import {
 } from '@ionic/react'
 import {
   closeSharp,
-  closeCircle,
-  wifi,
-  wine,
-  warning,
-  walk
+  closeCircle
 } from 'ionicons/icons'
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { HeaderWithMenuBtn, TagLayout } from '../components/Tags'
+import { useKey } from 'rooks'
 import { useMedia } from '../hooks/hooks'
 import { PATHS } from './urls'
 import { useAboutMeContext } from '../context/AboutMeContext'
@@ -39,6 +36,7 @@ const PersonalInformation = () => {
   const inputAllergie = useRef()
   const { cover } = gallery
   const { name, age, stature, city, allergies, diseases, rh } = info
+  const separador = ','
   const handleChangeInfo = (e) => {
     const {
       target: { name, value }
@@ -46,11 +44,20 @@ const PersonalInformation = () => {
     info[name] = value
     setInfo({ ...info })
   }
+  const inputEnter = (e) => {
+    const {
+      current: { value }
+    } = inputAllergie
+    value && handleChangeInfoAllergie()
+  }
+  useKey(['Enter'], inputEnter, {
+    target: inputAllergie
+  })
   const handleChangeInfoAllergie = () => {
     const {
       current: { name, value }
     } = inputAllergie
-    info[name] += `${value},`
+    info[name] += `${value}${separador}`
     setInfo({ ...info })
     inputAllergie.current.value = String()
   }
@@ -257,16 +264,16 @@ const PersonalInformation = () => {
                 <div className="ion-padding" slot="content">
                   {allergies &&
                     allergies
-                      .split(',')
+                      .split(separador)
                       .map(
                         (item, index) =>
                           item.trim() && (
                             <IonChip key={index} onClick={() => {
-                              const arrayAlergia = allergies.split(',')
+                              const arrayAlergia = allergies.split(separador)
                               const indexAlergia = arrayAlergia.findIndex(i => i === item)
                               const AlergiaSin = arrayAlergia.filter((el, indice) => indice !== indexAlergia)
-                              console.log(AlergiaSin.join(','))
-                              handleChangeInfo({ target: { name: 'allergies', value: AlergiaSin.join(',') } })
+                              console.log(AlergiaSin.join(separador))
+                              handleChangeInfo({ target: { name: 'allergies', value: AlergiaSin.join(separador) } })
                             }}>
                               <IonLabel>{item}</IonLabel>
                               <IonIcon color="danger" icon={closeCircle} />
