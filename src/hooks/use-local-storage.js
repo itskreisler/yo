@@ -1,44 +1,51 @@
 import { useState } from 'react'
 
-// Hook
+/**
+ * Un hook que se utiliza para almacenar datos en el almacenamiento local del navegador.
+ * @param [key] - Clave.
+ * @param [initialValue] - Valor (puede ser un String, Number, Boolean, Object, Array).
+ * @returns Devuelve una matrix con dos elementos. El primer elemento es el valor de estado, el segundo elemento es una funcion
+ * para actualizar el estado.
+ * */
 const useLocalStorage = (key, initialValue) => {
-  // State to store our value
-  // Pass initial state function to useState so logic is only executed once
+  // Estado para almacenar nuestro valor
+  // Pasar la función de estado inicial a useState para que la lógica solo se ejecute una vez
   const [storedValue, setStoredValue] = useState(() => {
     if (typeof window === 'undefined') {
       return initialValue
     }
     try {
-      // Get from local storage by key
+      // Obtenga el almacenamiento local por clave
       const item = window.localStorage.getItem(key)
-      // Parse stored json or if none return initialValue
+      // Parceando JSON o si no devuelve InitialValue
       return item ? JSON.parse(item) : initialValue
     } catch (error) {
-      // If error also return initialValue
+      // Si hay una exepcion también devuelve InitialValue
       console.log(error)
       return initialValue
     }
   })
-  // Return a wrapped version of useState's setter function that ...
-  // ... persists the new value to localStorage.
+  // Devuelve una versión envuelta de la función setter de useSestate que ...
+  // ... persiste el nuevo valor a LocalStorage.
   const setValue = (value) => {
     try {
-      // Allow value to be a function so we have same API as useState
+      // Permitir que el valor sea una función para que tengamos la misma API que USestate
       const valueToStore =
         value instanceof Function ? value(storedValue) : value
-      // Save state
+      // Guardar Estado
       setStoredValue(valueToStore)
-      // Save to local storage
+      // Guardar en el almacenamiento local
       if (typeof window !== 'undefined') {
         window.localStorage.setItem(key, JSON.stringify(valueToStore))
       }
     } catch (error) {
-      // A more advanced implementation would handle the error case
+      // Una implementación más avanzada manejaría el caso de error
       console.log(error)
     }
   }
   return [storedValue, setValue]
 }
+/** Una función que se utiliza para establecer, obtener y borrar el almacenamiento local. */
 const useLS = {
   set: (key, value) => {
     if (!key || !value) {
@@ -57,7 +64,7 @@ const useLS = {
       return
     }
 
-    // assume it is an object that has been stringified
+    // Suponga que es un objeto que ha sido convertido en string
     if (value[0] === '{' || value[0] === '[') {
       value = JSON.parse(value)
     }

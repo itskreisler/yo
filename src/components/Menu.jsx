@@ -16,20 +16,12 @@ import { appPages } from '../pages/urls'
 import './Menu.css'
 
 import { useDarkMode } from '../hooks/use-dark-mode'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { usePlatform } from '../hooks/use-platform'
 import { useAboutMeContext } from '../context/AboutMeContext'
 import { TagLinkToA } from './TagLinkTo'
 
 const Menu = () => {
-  const [estrellas, setEstrellas] = useState()
-  useEffect(() => {
-    (async () => {
-      const req = await global.fetch('https://api.github.com/repos/itskreisler/yo')
-      const res = await req.json()
-      setEstrellas(res)
-    })()
-  }, [])
   const { pathname } = useLocation()
   const {
     aboutMe: {
@@ -80,7 +72,7 @@ const Menu = () => {
             >
               <IonItem lines="none">
                 <IonIcon slot="start" icon={logoGithub} />
-                <IonLabel>{label}</IonLabel>{estrellas?.stargazers_count}
+                <IonLabel>{label}</IonLabel>
                 <IonIcon slot="end" icon={starSharp}/>
               </IonItem>
             </TagLinkToA>

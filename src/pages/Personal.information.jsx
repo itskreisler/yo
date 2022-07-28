@@ -260,7 +260,7 @@ const PersonalInformation = () => {
             <IonItem>
               <IonLabel>Enfermedades:</IonLabel>
               <IonButton slot="end" fill="outline" color={'success'}
-              onClick={handleChangeInfoDiseases}>
+                onClick={handleChangeInfoDiseases}>
                 Añadir
               </IonButton>
               <IonInput
@@ -280,7 +280,7 @@ const PersonalInformation = () => {
                   <IonLabel>Alergias</IonLabel>
                 </IonItem>
                 <div className="ion-padding" slot="content">
-                  {!allergies && 'No hay alergias'}
+                  {!allergies && 'No hay Alergias'}
                   {allergies &&
                     allergies
                       .split(separador)
@@ -305,8 +305,8 @@ const PersonalInformation = () => {
                   <IonLabel>Enfermedades</IonLabel>
                 </IonItem>
                 <div className="ion-padding" slot="content">
-                {!diseases && 'No hay Enfermedades'}
-                {diseases &&
+                  {!diseases && 'No hay Enfermedades'}
+                  {diseases &&
                     diseases
                       .split(separador)
                       .map(
