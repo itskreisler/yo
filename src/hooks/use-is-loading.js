@@ -12,7 +12,7 @@ const useIsLoading = (initialValue = false) => {
   const handleIsLoading = () => setIsLoading(!isLoading)
   const handleIsLoadingTrue = () => setIsLoading(true)
   const handleIsLoadingFalse = () => setIsLoading(false)
-  return [isLoading, { handleIsLoading, handleIsLoadingTrue, handleIsLoadingFalse }]
+  return [isLoading, { setIsLoading, handleIsLoading, handleIsLoadingTrue, handleIsLoadingFalse }]
 }
 
 export { useIsLoading }
